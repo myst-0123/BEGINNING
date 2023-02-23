@@ -1,0 +1,70 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using TMPro;
+using NovelScene;
+
+namespace NovelScene
+{
+    public class MainTextController : MonoBehaviour
+    {
+        [SerializeField] TextMeshProUGUI _mainTextObject;
+
+        int _dispalyedSentenceLength;
+        float _time;
+        float _feedTime;
+
+        // Start is called before the first frame update
+        void Start()
+        {
+            _time = 0f;
+            _feedTime = 0.05f;
+
+            DisplayText();
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+            _time += Time.deltaTime;
+            if (_time >= _feedTime)
+            {
+                _time -= _feedTime;
+                if (!CanGoToTheNextLine())
+                {
+                    _dispalyedSentenceLength++;
+                    _mainTextObject.maxVisibleCharacters = _dispalyedSentenceLength;
+                }
+            }
+            if (Input.GetMouseButtonUp(0))
+            {
+                if (CanGoToTheNextLine())
+                {
+                    GoToTheNextLine();
+                    DisplayText();
+                }
+            }
+        }
+
+        public bool CanGoToTheNextLine()
+        {
+            string sentence = GameManager.Instance.userScriptManager.GetCurrentSentence();
+            return (_dispalyedSentenceLength > sentence.Length);
+        }
+
+        public void GoToTheNextLine()
+        {
+            _dispalyedSentenceLength = 0;
+            _time = 0f;
+            _mainTextObject.maxVisibleCharacters = 0;
+            GameManager.Instance.lineNumber++;
+        }
+
+        public void DisplayText()
+        {
+            string sentence = GameManager.Instance.userScriptManager.GetCurrentSentence();
+            _mainTextObject.text = sentence;
+        }
+    }
+
+}
