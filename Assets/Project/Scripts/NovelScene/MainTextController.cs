@@ -11,6 +11,7 @@ namespace NovelScene
         [SerializeField] TextMeshProUGUI _mainTextObject;
 
         int _dispalyedSentenceLength;
+        int _sentenceLength;
         float _time;
         float _feedTime;
 
@@ -49,12 +50,17 @@ namespace NovelScene
                     GoToTheNextLine();
                     DisplayText();
                 }
+                else
+                {
+                    _dispalyedSentenceLength = _sentenceLength;
+                }
             }
         }
 
         public bool CanGoToTheNextLine()
         {
             string sentence = GameManager.Instance.userScriptManager.GetCurrentSentence();
+            _sentenceLength = sentence.Length;
             return (_dispalyedSentenceLength > sentence.Length);
         }
 
