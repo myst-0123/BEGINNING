@@ -20,6 +20,12 @@ namespace NovelScene
             _time = 0f;
             _feedTime = 0.05f;
 
+            string statement = GameManager.Instance.userScriptManager.GetCurrentSentence();
+            if (GameManager.Instance.userScriptManager.IsStatemant(statement))
+            {
+                GameManager.Instance.userScriptManager.ExecuteStatement(statement);
+                GoToTheNextLine();
+            }
             DisplayText();
         }
 
@@ -58,6 +64,12 @@ namespace NovelScene
             _time = 0f;
             _mainTextObject.maxVisibleCharacters = 0;
             GameManager.Instance.lineNumber++;
+            string statement = GameManager.Instance.userScriptManager.GetCurrentSentence();
+            if (GameManager.Instance.userScriptManager.IsStatemant(statement))
+            {
+                GameManager.Instance.userScriptManager.ExecuteStatement(statement);
+                GoToTheNextLine();
+            }
         }
 
         public void DisplayText()

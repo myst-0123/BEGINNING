@@ -10,6 +10,8 @@ namespace NovelScene
 
         public UserScriptManager userScriptManager;
         public MainTextController mainTextController;
+        public NameTextController nameTextController;
+        public ImageManager imageManager;
 
         [System.NonSerialized] public int lineNumber;
 

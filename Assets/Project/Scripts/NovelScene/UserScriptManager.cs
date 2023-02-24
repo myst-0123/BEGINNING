@@ -25,6 +25,35 @@ namespace NovelScene
         {
             return _sentences[GameManager.Instance.lineNumber];
         }
+
+        public bool IsStatemant(string sentence)
+        {
+            if (sentence[0] == '&' || sentence[0] == '!')
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public void ExecuteStatement(string sentence)
+        {
+            string[] words = sentence.Split(' ');
+            switch(words[0])
+            {
+                case "&background":
+                    GameManager.Instance.imageManager.SetBackgroundImage(words[1]);
+                    break;
+                case "&character":
+                    GameManager.Instance.imageManager.SetCharacterImage(int.Parse(words[1]), words[2]);
+                    break;
+                case "!":
+                    GameManager.Instance.nameTextController.SetName(words[1]);
+                    break;
+            }
+        }
     }
 
 }
