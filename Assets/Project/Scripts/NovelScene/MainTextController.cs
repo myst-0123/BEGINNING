@@ -78,6 +78,12 @@ namespace NovelScene
             }
         }
 
+        public void GoToLine(int lineNum)
+        {
+            GameManager.Instance.lineNumber = lineNum - 1;
+            GoToTheNextLine();
+        }
+
         public void DisplayText()
         {
             string sentence = GameManager.Instance.userScriptManager.GetCurrentSentence();

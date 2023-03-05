@@ -49,6 +49,9 @@ namespace NovelScene
                 case "&character":
                     GameManager.Instance.imageManager.SetCharacterImage(int.Parse(words[1]), words[2]);
                     break;
+                case "&goto":
+                    GameManager.Instance.mainTextController.GoToLine(int.Parse(words[1]));
+                    break;
                 case "!":
                     GameManager.Instance.nameTextController.SetName(words[1]);
                     break;
