@@ -9,6 +9,7 @@ namespace NovelScene
     public class MainTextController : MonoBehaviour
     {
         [SerializeField] TextMeshProUGUI _mainTextObject;
+        [SerializeField] GameObject _nextPageIcon;
 
         int _dispalyedSentenceLength;
         int _sentenceLength;
@@ -55,6 +56,8 @@ namespace NovelScene
                     _dispalyedSentenceLength = _sentenceLength;
                 }
             }
+
+            _nextPageIcon.SetActive(_dispalyedSentenceLength > _sentenceLength);
         }
 
         public bool CanGoToTheNextLine()
