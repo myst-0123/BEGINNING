@@ -96,11 +96,6 @@ namespace NovelScene
             }
         }
 
-        public void GoToLine(int lineNum)
-        {
-            GameManager.Instance.lineNumber = lineNum - 2;
-        }
-
         public void DisplayText()
         {
             string sentence = GameManager.Instance.userScriptManager.GetCurrentSentence();

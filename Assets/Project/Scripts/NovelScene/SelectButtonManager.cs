@@ -14,7 +14,7 @@ namespace NovelScene
 
         public bool selectMode { get; private set; } = false;
 
-        public void makeSelectButton(List<String> texts, List<int> lines)
+        public void makeSelectButton(List<string> texts, List<string> labels)
         {
             RectTransform rectTransform;
 
@@ -30,7 +30,7 @@ namespace NovelScene
                 rectTransform.localPosition = new Vector3(0, 200 - i*200, 0);
                 
                 SelectButtonScript buttonScript = button.GetComponent<SelectButtonScript>();
-                buttonScript.setLineNum(lines[i]);
+                buttonScript.setLabel(labels[i]);
             }
             
             selectMode = true;

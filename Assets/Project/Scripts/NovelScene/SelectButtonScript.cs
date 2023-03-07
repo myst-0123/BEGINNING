@@ -4,16 +4,16 @@ namespace NovelScene
 {
     public class SelectButtonScript : MonoBehaviour
     {
-        int lineNum = 2;
+        string label = "None";
 
-        public void setLineNum(int num)
+        public void setLabel(string l)
         {
-            lineNum = num;
+            label = l;
         }
 
         public void OnClick()
         {
-            GameManager.Instance.mainTextController.GoToLine(lineNum);
+            GameManager.Instance.userScriptManager.GoToLine(label);
             GameManager.Instance.selectButtonManager.deleteAllButton();
         }
     }

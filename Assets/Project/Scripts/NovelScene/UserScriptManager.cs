@@ -31,7 +31,7 @@ namespace NovelScene
 
         public bool IsStatemant(string sentence)
         {
-            if (sentence[0] == '&' || sentence[0] == '!')
+            if (sentence[0] == '&' || sentence[0] == '!' || sentence[0] == '#')
             {
                 return true;
             }
@@ -45,10 +45,8 @@ namespace NovelScene
         {
             string[] words = sentence.Split(' ');
 
-            var texts = new List<String>();
-            var lines = new List<int>();
-
-            int line;
+            var texts = new List<string>();
+            var labels = new List<string>();
 
             switch(words[0])
             {
@@ -59,21 +57,21 @@ namespace NovelScene
                     GameManager.Instance.imageManager.SetCharacterImage(int.Parse(words[1]), words[2]);
                     break;
                 case "&goto":
-                    GameManager.Instance.mainTextController.GoToLine(int.Parse(words[1]));
+                    GoToLine(words[1]);
                     break;
                 case "&select":
                     foreach (var i in words.Skip(1))
                     {
-                        if (int.TryParse(i, out line))
+                        if (i[0] == '#')
                         {
-                            lines.Add(line);
+                            labels.Add(i);
                         }
                         else
                         {
                             texts.Add(i);
                         }
                     }
-                    GameManager.Instance.selectButtonManager.makeSelectButton(texts, lines);
+                    GameManager.Instance.selectButtonManager.makeSelectButton(texts, labels);
                     break;
                 case "!":
                     if (words.Length == 1)
@@ -86,6 +84,12 @@ namespace NovelScene
                     }
                     break;
             }
+        }
+
+        public void GoToLine(string label)
+        {
+            int index = _sentences.FindIndex(n => n == label);
+            GameManager.Instance.lineNumber = index;
         }
     }
 
