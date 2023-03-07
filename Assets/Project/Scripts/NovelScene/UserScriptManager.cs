@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 
 namespace NovelScene
@@ -17,7 +19,8 @@ namespace NovelScene
             while (reader.Peek() != -1)
             {
                 string line = reader.ReadLine();
-                _sentences.Add(line);
+                if (line != "")
+                    _sentences.Add(line);
             }
         }
 
@@ -41,6 +44,12 @@ namespace NovelScene
         public void ExecuteStatement(string sentence)
         {
             string[] words = sentence.Split(' ');
+
+            var texts = new List<String>();
+            var lines = new List<int>();
+
+            int line;
+
             switch(words[0])
             {
                 case "&background":
@@ -52,8 +61,29 @@ namespace NovelScene
                 case "&goto":
                     GameManager.Instance.mainTextController.GoToLine(int.Parse(words[1]));
                     break;
+                case "&select":
+                    foreach (var i in words.Skip(1))
+                    {
+                        if (int.TryParse(i, out line))
+                        {
+                            lines.Add(line);
+                        }
+                        else
+                        {
+                            texts.Add(i);
+                        }
+                    }
+                    GameManager.Instance.selectButtonManager.makeSelectButton(texts, lines);
+                    break;
                 case "!":
-                    GameManager.Instance.nameTextController.SetName(words[1]);
+                    if (words.Length == 1)
+                    {
+                        GameManager.Instance.nameTextController.SetName("");
+                    }
+                    else
+                    {
+                        GameManager.Instance.nameTextController.SetName(words[1]);
+                    }
                     break;
             }
         }

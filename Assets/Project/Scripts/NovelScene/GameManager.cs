@@ -1,6 +1,7 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace NovelScene
 {
@@ -12,8 +13,9 @@ namespace NovelScene
         public MainTextController mainTextController;
         public NameTextController nameTextController;
         public ImageManager imageManager;
+        public SelectButtonManager selectButtonManager;
 
-        [System.NonSerialized] public int lineNumber;
+        public int lineNumber;
 
         private void Awake()
         {

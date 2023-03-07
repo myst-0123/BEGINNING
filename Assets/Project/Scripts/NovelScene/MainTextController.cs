@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using NovelScene;
+using System;
 
 namespace NovelScene
 {
@@ -34,7 +35,13 @@ namespace NovelScene
         // Update is called once per frame
         void Update()
         {
+            if (GameManager.Instance.selectButtonManager.selectMode)
+            {
+                _mainTextObject.maxVisibleCharacters = _sentenceLength;
+            }
+
             _time += Time.deltaTime;
+
             if (_time >= _feedTime)
             {
                 _time -= _feedTime;
@@ -57,14 +64,19 @@ namespace NovelScene
                 }
             }
 
-            _nextPageIcon.SetActive(_dispalyedSentenceLength > _sentenceLength);
+            _nextPageIcon.SetActive(CanGoToTheNextLine() || GameManager.Instance.selectButtonManager.selectMode);
         }
 
         public bool CanGoToTheNextLine()
         {
             string sentence = GameManager.Instance.userScriptManager.GetCurrentSentence();
             _sentenceLength = sentence.Length;
-            return (_dispalyedSentenceLength > sentence.Length);
+            if (_dispalyedSentenceLength <= _sentenceLength)
+                return false;
+            if (GameManager.Instance.selectButtonManager.selectMode)
+                return false;
+
+            return true;
         }
 
         public void GoToTheNextLine()
@@ -77,14 +89,16 @@ namespace NovelScene
             if (GameManager.Instance.userScriptManager.IsStatemant(statement))
             {
                 GameManager.Instance.userScriptManager.ExecuteStatement(statement);
-                GoToTheNextLine();
+                if (!GameManager.Instance.selectButtonManager.selectMode)
+                    GoToTheNextLine();
+                else
+                    GameManager.Instance.lineNumber--;
             }
         }
 
         public void GoToLine(int lineNum)
         {
-            GameManager.Instance.lineNumber = lineNum - 1;
-            GoToTheNextLine();
+            GameManager.Instance.lineNumber = lineNum - 2;
         }
 
         public void DisplayText()

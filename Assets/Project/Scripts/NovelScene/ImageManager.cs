@@ -33,6 +33,11 @@ namespace NovelScene
             backgroundImageComponent.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.zero);
         }
 
+        public void SetBackgroundA(float num)
+        {
+            backgroundImageComponent.color = new Color(1.0f, 1.0f, 1.0f, num);
+        }
+
         public void SetCharacterImage(int index, string image_name)
         {
             Texture2D texture = Resources.Load("images/characters/" + image_name) as Texture2D;
