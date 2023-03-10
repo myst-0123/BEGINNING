@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace BattleScene
@@ -26,7 +24,7 @@ namespace BattleScene
                 anim.SetBool("Run", true);
                 if (transform.position.x < 3)
                 {
-                    transform.position += new Vector3(speed, 0, 0) * Time.deltaTime; 
+                    transform.position += new Vector3(speed, 0, 0) * Time.deltaTime;
                 }
             }
             if (Input.GetKey(KeyCode.A))

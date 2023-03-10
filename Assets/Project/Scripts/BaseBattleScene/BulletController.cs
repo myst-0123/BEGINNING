@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace BattleScene
@@ -12,7 +10,7 @@ namespace BattleScene
         // Update is called once per frame
         void Update()
         {
-            transform.position += new Vector3(speed, 0, 0) * Time.deltaTime; 
+            transform.position += new Vector3(speed, 0, 0) * Time.deltaTime;
             if (transform.position.x > 11)
             {
                 Destroy(gameObject);

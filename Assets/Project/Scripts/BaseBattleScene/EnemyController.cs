@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -16,14 +13,22 @@ namespace BattleScene
             Attack,
         }
 
+        private enum AttackPattern
+        {
+            Radiation,
+            RapidFire
+        }
+
         [SerializeField] private GameObject _playerObject;
+        [SerializeField] private GameObject _bulletPrefab;
         [SerializeField] private float _speed;
 
         private State _state = State.Standby;
-        private float _transitionTime = 0.7f;
+        [SerializeField] AttackPattern _attackPattern = AttackPattern.Radiation;
+        private float _transitionTime = 1.5f;
         private float _moveTime = 0;
-        [SerializeField] private Vector3 _direction = Vector3.zero;
-        [SerializeField] private bool _a = true;
+        private float _fireTime = 0;
+        private Vector3 _direction = Vector3.zero;
 
         // Start is called before the first frame update
         void Start()
@@ -88,14 +93,11 @@ namespace BattleScene
             }
 
             _state = State.Move;
-            
+
         }
 
         void Move()
         {
-            float x = transform.position.x;
-            float y = transform.position.y;
-
             _moveTime += Time.deltaTime;
 
             if (_moveTime > _transitionTime)
@@ -105,9 +107,7 @@ namespace BattleScene
             }
             else
             {
-                _a = x > 3 && x < 6 && y > -2.5f && y < 2.5f;
-                if (x > 3 && x < 6 && y > -2.5f && y < 2.5f)
-                    transform.position += _direction * Time.deltaTime;
+                transform.position += _direction * Time.deltaTime;
             }
         }
 
@@ -134,7 +134,56 @@ namespace BattleScene
 
         void Attack()
         {
-            _state = State.Standby;
+            AttackRadiation();
+            AttackRapidFire();
+
+            _moveTime += Time.deltaTime;
+
+            if (_moveTime > _transitionTime)
+            {
+                _moveTime = 0;
+                _state = State.Standby;
+            }
+        }
+
+        void AttackRadiation()
+        {
+            if (_moveTime == 0)
+            {
+                for (int i = 105; i <= 255; i += 15)
+                {
+                    GameObject bullet = Instantiate(_bulletPrefab, transform.position, transform.rotation);
+                    EnemyBulletController enemyBullet = bullet.GetComponent<EnemyBulletController>();
+                    enemyBullet.direction = i;
+                }
+            }
+        }
+
+        void AttackRapidFire()
+        {
+            _fireTime += Time.deltaTime;
+
+            float yDistance = transform.position.y - _playerObject.transform.position.y;
+            Vector3 direction = Vector3.zero;
+
+            if (yDistance < 0)
+            {
+                direction = new Vector3(0, _speed, 0);
+                transform.position += direction * Time.deltaTime;
+            }
+            else
+            {
+                direction = new Vector3(0, -1 * _speed, 0);
+                transform.position += direction * Time.deltaTime;
+            }
+
+            if (_fireTime > 0.15f)
+            {
+                _fireTime = 0;
+                GameObject bullet = Instantiate(_bulletPrefab, transform.position, transform.rotation);
+                EnemyBulletController enemyBullet = bullet.GetComponent<EnemyBulletController>();
+                enemyBullet.direction = 180;
+            }
         }
     }
 }
