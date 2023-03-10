@@ -11,6 +11,7 @@ namespace BattleScene
         float time = 0;
 
         [SerializeField] float shootInterval;
+        [SerializeField] float speed;
         [SerializeField] GameObject bulletPrefab;
 
         void Start()
@@ -23,9 +24,9 @@ namespace BattleScene
             if (Input.GetKey(KeyCode.D))
             {
                 anim.SetBool("Run", true);
-                if (transform.position.x < 7.8)
+                if (transform.position.x < 3)
                 {
-                    transform.Translate(0.01f, 0, 0); 
+                    transform.position += new Vector3(speed, 0, 0) * Time.deltaTime; 
                 }
             }
             if (Input.GetKey(KeyCode.A))
@@ -33,7 +34,7 @@ namespace BattleScene
                 anim.SetBool("Run", true);
                 if (transform.position.x > -7.8)
                 {
-                    transform.Translate(-0.01f, 0, 0);
+                    transform.position += new Vector3(-1 * speed, 0, 0) * Time.deltaTime;
                 }
             }
             if (Input.GetKey(KeyCode.W))
@@ -41,7 +42,7 @@ namespace BattleScene
                 anim.SetBool("Run", true);
                 if (transform.position.y < 3.7)
                 {
-                    transform.Translate(0, 0.01f, 0);
+                    transform.position += new Vector3(0, speed, 0) * Time.deltaTime;
                 }
             }
             if (Input.GetKey(KeyCode.S))
@@ -49,7 +50,7 @@ namespace BattleScene
                 anim.SetBool("Run", true);
                 if (transform.position.y > -3.7)
                 {
-                    transform.Translate(0, -0.01f, 0);
+                    transform.position += new Vector3(0, -1 * speed, 0) * Time.deltaTime;
                 }
             }
             if (!Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.D))
