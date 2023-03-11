@@ -152,9 +152,9 @@ namespace BattleScene
             {
                 for (int i = 105; i <= 255; i += 15)
                 {
-                    GameObject bullet = Instantiate(_bulletPrefab, transform.position, transform.rotation);
-                    EnemyBulletController enemyBullet = bullet.GetComponent<EnemyBulletController>();
-                    enemyBullet.direction = i;
+                    Quaternion rotation = Quaternion.identity;
+                    rotation.eulerAngles = new Vector3(0, 0, i);
+                    GameObject bullet = Instantiate(_bulletPrefab, transform.position, rotation);
                 }
             }
         }
@@ -180,9 +180,9 @@ namespace BattleScene
             if (_fireTime > 0.15f)
             {
                 _fireTime = 0;
-                GameObject bullet = Instantiate(_bulletPrefab, transform.position, transform.rotation);
-                EnemyBulletController enemyBullet = bullet.GetComponent<EnemyBulletController>();
-                enemyBullet.direction = 180;
+                Quaternion rotation = Quaternion.identity;
+                rotation.eulerAngles = new Vector3(0, 0, 180);
+                GameObject bullet = Instantiate(_bulletPrefab, transform.position, rotation);
             }
         }
     }

@@ -8,10 +8,12 @@ namespace BattleScene
         private Animator anim = null;
 
         float time = 0;
-        float skillTime = 0;
+        float skillTime;
+        float skillCoolDown = 0;
 
         [SerializeField] float shootInterval;
         [SerializeField] float skillCollTime;
+        [SerializeField] float skillContinuationTime;
         [SerializeField] float speed;
         [SerializeField] GameObject bulletPrefab;
         [SerializeField] Slider skillSlider;
@@ -19,11 +21,12 @@ namespace BattleScene
         void Start()
         {
             anim = GetComponent<Animator>();
+            skillTime = skillContinuationTime;
         }
 
         void Update()
         {
-            SkillCoolDownUpdate();
+            SkillTimeUpdate();
 
             if (Input.GetKey(KeyCode.D))
             {
@@ -76,27 +79,54 @@ namespace BattleScene
             time += Time.deltaTime;
             if (time > shootInterval)
             {
-                time = 0;
-                GameObject bullet = Instantiate(bulletPrefab);
-
-                bullet.transform.position = new Vector3(transform.position.x + 1.4f, transform.position.y + 0.3f, 0);
+                if (skillTime < skillContinuationTime)
+                {
+                    time = 0;
+                    for (int i = -18; i <= 18; i += 12)
+                    {
+                        Quaternion rotation = Quaternion.identity;
+                        rotation.eulerAngles = new Vector3(0, 0, i);
+                        Instantiate(bulletPrefab, new Vector3(transform.position.x + 1.4f, transform.position.y + 0.3f, 0), rotation);
+                    }
+                }
+                else
+                {
+                    time = 0;
+                    Instantiate(bulletPrefab, new Vector3(transform.position.x + 1.4f, transform.position.y + 0.3f, 0), transform.rotation);
+                }
             }
         }
 
-        void SkillCoolDownUpdate()
+        void SkillTimeUpdate()
         {
-            skillTime -= Time.deltaTime;
-            if (skillTime < 0)
-                skillTime = 0;
-            skillSlider.value = skillTime / skillCollTime;
+            if (skillTime < skillContinuationTime)
+            {
+                skillTime += Time.deltaTime;
+                if (skillTime > skillContinuationTime)
+                {
+                    shootInterval -= 0.5f; 
+                    skillTime = skillContinuationTime;
+                }
+                skillSlider.value = skillTime / skillContinuationTime;
+            }
+            else
+            {
+                skillCoolDown -= Time.deltaTime;
+                if (skillCoolDown < 0)
+                {
+                    skillCoolDown = 0;
+                }
+                skillSlider.value = skillCoolDown / skillCollTime;
+            }
         }
 
         void Skill()
         {
-            if (skillTime == 0)
+            if (skillCoolDown == 0)
             {
-                Debug.Log("Skill");
-                skillTime = skillCollTime;
+                skillTime = 0;
+                shootInterval += 0.5f;
+                skillCoolDown = skillCollTime;
             }
         }
     }
