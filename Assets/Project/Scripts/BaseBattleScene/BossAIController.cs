@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace BattleScene
 {
-    public class EnemyController : MonoBehaviour
+    public class BossAIController : MonoBehaviour
     {
         private enum State
         {
