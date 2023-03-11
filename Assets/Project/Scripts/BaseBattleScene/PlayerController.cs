@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,17 +17,28 @@ namespace BattleScene
         [SerializeField] float skillContinuationTime;
         [SerializeField] float speed;
         [SerializeField] GameObject bulletPrefab;
+        [SerializeField] GameObject manager;
         [SerializeField] Slider skillSlider;
+
+        private GameManager gameManager;
 
         void Start()
         {
             anim = GetComponent<Animator>();
+            gameManager = manager.GetComponent<GameManager>();
+
             skillTime = skillContinuationTime;
         }
 
         void Update()
         {
             SkillTimeUpdate();
+
+            if (transform.gameObject.GetComponent<HPController>().hp == 0)
+            {
+                gameManager.StartCoroutine("BattleLose");
+                this.enabled = false;
+            }
 
             if (Input.GetKey(KeyCode.D))
             {

@@ -8,8 +8,17 @@ namespace BattleScene
 {
     public class GameManager : MonoBehaviour
     {
+        private enum Stage
+        {
+            one,
+            two,
+            threeOne,
+            threeTwo,
+            threeThree
+        }
+
+        [SerializeField] private GameObject[] _enemyPrefabs = new GameObject[5];
         [SerializeField] private GameObject _playerObject;
-        [SerializeField] private GameObject _enemyObject;
         [SerializeField] private Canvas _gameoverWindow;
         [SerializeField] private Image _image;
         [SerializeField] private Image _readyImage;
@@ -17,23 +26,26 @@ namespace BattleScene
         [SerializeField] private float _fadeTime;
         [SerializeField] private float _loopCount;
         
-        private float _velocity;
+        private GameObject _enemies;
         private HPController _playerHpController;
+
+        private float _waitTime;
+        private float _interval;
 
         private void Start()
         {
+            _waitTime = _fadeTime / _loopCount;
+            _interval = 255.0f / _loopCount;
+
+            InstantiateEnemy(Stage.threeThree);
             StartCoroutine("FadeIn");
-            _playerHpController = _playerObject.GetComponent<HPController>();
         }
 
-        private void Update()
+        private void InstantiateEnemy(Stage stage)
         {
-            if (_playerHpController.hp == 0)
-            {
-                _playerObject.GetComponent<PlayerController>().enabled = false;
-                _gameoverWindow.gameObject.SetActive(true);
-            }
+            _enemies = Instantiate(_enemyPrefabs[(int)stage]);            
         }
+
         public void Retry()
         {
             Debug.Log("clicked!");
@@ -43,6 +55,24 @@ namespace BattleScene
         public void ReturnToTitle()
         {
 
+        }
+
+        IEnumerator BattleLose()
+        {
+            _gameoverWindow.gameObject.SetActive(true);
+
+            float interval = 130.0f / _loopCount;
+
+            _image.color = new Color(0, 0, 0, 0);
+
+            for (float a = 0; a <= 130.0f; a += interval)
+            {
+                yield return new WaitForSeconds(_waitTime);
+
+                Color newColor = _image.color;
+                newColor.a = a / 255.0f;
+                _image.color = newColor;
+            }
         }
 
         IEnumerator BattleWin()
@@ -55,15 +85,14 @@ namespace BattleScene
 
         IEnumerator FadeIn()
         {
-            float waitTime = _fadeTime / _loopCount;
-            float interval = 255.0f / _loopCount;
             float _velocity = 8.0f / _fadeTime;
             float velocityReductionRate = _velocity / (_fadeTime * _loopCount);
+
             _image.color = new Color(0, 0, 0, 1);
 
-            for (float a = 255.0f; a >= 0; a -= interval)
+            for (float a = 255.0f; a >= 0; a -= _interval)
             {
-                yield return new WaitForSeconds(waitTime);
+                yield return new WaitForSeconds(_waitTime);
 
                 _playerObject.transform.position += new Vector3(_velocity, 0, 0) * Time.deltaTime;
 
@@ -88,18 +117,16 @@ namespace BattleScene
             _fightImage.gameObject.SetActive(false);
 
             _playerObject.GetComponent<PlayerController>().enabled = true;
-            _enemyObject.GetComponent<EnemyController>().enabled = true;
+            _enemies.GetComponent<EnemiesController>().SetPermittionTrue();
         }
 
         IEnumerator FadeOut()
         {
-            float waitTime = _fadeTime / _loopCount;
-            float interval = 255.0f / _loopCount;
             _image.color = new Color(0, 0, 0, 0);
 
-            for (float a = 0.0f; a <= 255.0; a += interval)
+            for (float a = 0.0f; a <= 255.0; a += _interval)
             {
-                yield return new WaitForSeconds(waitTime);
+                yield return new WaitForSeconds(_waitTime);
 
                 Color newColor = _image.color;
                 newColor.a = a / 255.0f;
