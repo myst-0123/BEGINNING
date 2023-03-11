@@ -24,21 +24,18 @@ namespace BattleScene
         [SerializeField] private float _speed;
 
         private State _state = State.Standby;
-        [SerializeField] AttackPattern _attackPattern = AttackPattern.Radiation;
         private float _transitionTime = 1.5f;
         private float _moveTime = 0;
         private float _fireTime = 0;
         private Vector3 _direction = Vector3.zero;
 
-        // Start is called before the first frame update
-        void Start()
-        {
-
-        }
-
         // Update is called once per frame
         void Update()
         {
+            if (gameObject.GetComponent<HPController>().hp == 0)
+            {
+                Destroy(gameObject);
+            }
             switch (_state)
             {
                 case State.Standby:

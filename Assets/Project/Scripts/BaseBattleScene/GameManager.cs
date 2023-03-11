@@ -44,6 +44,14 @@ namespace BattleScene
 
         }
 
+        IEnumerator BattleWin()
+        {
+            IEnumerator enumerator = FadeOut();
+            Coroutine coroutine = StartCoroutine(enumerator);
+            yield return coroutine;
+            UnityEditor.EditorApplication.isPlaying = false;
+        }
+
         IEnumerator FadeIn()
         {
             float waitTime = _fadeTime / _loopCount;
