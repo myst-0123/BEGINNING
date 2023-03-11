@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace BattleScene
 {
@@ -7,10 +8,13 @@ namespace BattleScene
         private Animator anim = null;
 
         float time = 0;
+        float skillTime = 0;
 
         [SerializeField] float shootInterval;
+        [SerializeField] float skillCollTime;
         [SerializeField] float speed;
         [SerializeField] GameObject bulletPrefab;
+        [SerializeField] Slider skillSlider;
 
         void Start()
         {
@@ -19,6 +23,8 @@ namespace BattleScene
 
         void Update()
         {
+            SkillCoolDownUpdate();
+
             if (Input.GetKey(KeyCode.D))
             {
                 anim.SetBool("Run", true);
@@ -59,6 +65,10 @@ namespace BattleScene
             {
                 Shoot();
             }
+            if (Input.GetMouseButton(1))
+            {
+                Skill();
+            }
         }
 
         void Shoot()
@@ -70,6 +80,23 @@ namespace BattleScene
                 GameObject bullet = Instantiate(bulletPrefab);
 
                 bullet.transform.position = new Vector3(transform.position.x + 1.4f, transform.position.y + 0.3f, 0);
+            }
+        }
+
+        void SkillCoolDownUpdate()
+        {
+            skillTime -= Time.deltaTime;
+            if (skillTime < 0)
+                skillTime = 0;
+            skillSlider.value = skillTime / skillCollTime;
+        }
+
+        void Skill()
+        {
+            if (skillTime == 0)
+            {
+                Debug.Log("Skill");
+                skillTime = skillCollTime;
             }
         }
     }

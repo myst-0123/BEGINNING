@@ -6,7 +6,7 @@ public class HPController : MonoBehaviour
     [SerializeField] int maxHp;
     [SerializeField] Slider hpSlider;
 
-    int hp;
+    public int hp { get; private set; }
 
     void Start()
     {
