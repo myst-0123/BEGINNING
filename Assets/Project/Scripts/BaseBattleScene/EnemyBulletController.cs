@@ -29,7 +29,7 @@ namespace BattleScene
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.gameObject.tag != "Enemy")
+            if (collision.gameObject.tag == "Player")
             {
                 Instantiate(hitFxPrefab, transform.position, transform.rotation);
                 Destroy(gameObject);

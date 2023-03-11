@@ -13,43 +13,47 @@ namespace BattleScene
             Attack,
         }
 
-        private enum AttackPattern
-        {
-            Radiation,
-            RapidFire
-        }
-
-        [SerializeField] private GameObject _playerObject;
         [SerializeField] private GameObject _bulletPrefab;
         [SerializeField] private float _speed;
 
+        private GameObject _playerObject;
         private State _state = State.Standby;
         private float _transitionTime = 1.5f;
         private float _moveTime = 0;
         private float _fireTime = 0;
         private Vector3 _direction = Vector3.zero;
+        private EnemiesController _controller;
+
+        void Start()
+        {
+            _playerObject = GameObject.Find("Player");
+            _controller = transform.parent.GetComponent<EnemiesController>();
+        }
 
         // Update is called once per frame
         void Update()
         {
-            if (gameObject.GetComponent<HPController>().hp == 0)
+            if (_controller.permittion)
             {
-                Destroy(gameObject);
-            }
-            switch (_state)
-            {
-                case State.Standby:
-                    SetMovingDirection();
-                    break;
-                case State.Move:
-                    Move();
-                    break;
-                case State.Track:
-                    TrackMove();
-                    break;
-                case State.Attack:
-                    Attack();
-                    break;
+                if (gameObject.GetComponent<BossHpController>().hp == 0)
+                {
+                    Destroy(gameObject);
+                }
+                switch (_state)
+                {
+                    case State.Standby:
+                        SetMovingDirection();
+                        break;
+                    case State.Move:
+                        Move();
+                        break;
+                    case State.Track:
+                        TrackMove();
+                        break;
+                    case State.Attack:
+                        Attack();
+                        break;
+                }
             }
         }
 

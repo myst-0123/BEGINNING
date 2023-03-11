@@ -28,12 +28,14 @@ namespace BattleScene
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.gameObject.tag != "Player")
+            switch(collision.gameObject.tag)
             {
-                Instantiate(hitFxPrefab, transform.position, transform.rotation);
-                Destroy(gameObject);
-                HPController hpController = collision.gameObject.GetComponent<HPController>();
-                hpController.Attack(attackDamage);
+                case "Boss":
+                    Instantiate(hitFxPrefab, transform.position, transform.rotation);
+                    Destroy(gameObject);
+                    BossHpController hpController = collision.gameObject.GetComponent<BossHpController>();
+                    hpController.Attack(attackDamage);
+                    break;
             }
         }
     }
