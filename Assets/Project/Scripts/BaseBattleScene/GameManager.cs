@@ -12,7 +12,8 @@ namespace BattleScene
         [SerializeField] private GameObject _enemyObject;
         [SerializeField] private Canvas _gameoverWindow;
         [SerializeField] private Image _image;
-        [SerializeField] private TextMeshProUGUI _text;
+        [SerializeField] private Image _readyImage;
+        [SerializeField] private Image _fightImage;
         [SerializeField] private float _fadeTime;
         [SerializeField] private float _loopCount;
         
@@ -75,11 +76,16 @@ namespace BattleScene
 
             yield return new WaitForSeconds(0.2f);
 
-            _text.gameObject.SetActive(true);
+            _readyImage.gameObject.SetActive(true);
+
+            yield return new WaitForSeconds(1.0f);
+
+            _readyImage.gameObject.SetActive(false);
+            _fightImage.gameObject.SetActive(true);
 
             yield return new WaitForSeconds(0.7f);
 
-            _text.gameObject.SetActive(false);
+            _fightImage.gameObject.SetActive(false);
 
             _playerObject.GetComponent<PlayerController>().enabled = true;
             _enemyObject.GetComponent<EnemyController>().enabled = true;
