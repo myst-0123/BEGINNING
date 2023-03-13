@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DataManager : MonoBehaviour
 {
-    private SaveData _saveData;
+    public SaveData saveData { get; private set; }
     private string _filePath;
 
     private void Awake()
@@ -15,13 +15,13 @@ public class DataManager : MonoBehaviour
 
     public void ResetSaveData()
     {
-        _saveData.currentProgress = "1";
-        _saveData.reachedEnds = Enumerable.Repeat<bool>(false, 3).ToArray();
+        saveData.currentProgress = "1";
+        saveData.reachedEnds = Enumerable.Repeat<bool>(false, 3).ToArray();
     }
 
     public void Save()
     {
-        string json = JsonUtility.ToJson(_saveData);
+        string json = JsonUtility.ToJson(saveData);
         StreamWriter streamWriter = new StreamWriter(_filePath);
         streamWriter.Write(json);
         streamWriter.Flush();
@@ -35,7 +35,7 @@ public class DataManager : MonoBehaviour
             StreamReader streamReader = new StreamReader(_filePath);
             string data = streamReader.ReadToEnd();
             streamReader.Close();
-            _saveData = JsonUtility.FromJson<SaveData>(data);
+            saveData = JsonUtility.FromJson<SaveData>(data);
         }
     }
 }
