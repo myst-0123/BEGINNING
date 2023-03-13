@@ -5,12 +5,21 @@ using UnityEngine.SceneManagement;
 
 public class DataManager : MonoBehaviour
 {
-    public SaveData saveData { get; private set; }
+    private static DataManager instance;
+    public static DataManager Instance => instance;
+    public SaveData saveData { get; private set; } = new SaveData();
     private string _filePath;
 
     private void Awake()
     {
         _filePath = Application.persistentDataPath + "/" + ".savedata.json";
+
+        if (instance && this != instance)
+        {
+            Destroy(gameObject);
+        }
+
+        instance = this;
         DontDestroyOnLoad(this);
     }
 
@@ -19,15 +28,22 @@ public class DataManager : MonoBehaviour
         saveData.flags["thardOption"] = (saveData.reachedEnds[0] && saveData.reachedEnds[1]);
     }
 
+    public void LoadNextScene()
+    {
+        saveData.notPlayed = false;
+        SceneManager.LoadScene("LoadScene");
+    }
+
     public void ResetSaveData()
     {
-        saveData.currentProgress = "S1";
+        saveData.currentProgress = "S0";
         saveData.reachedEnds = Enumerable.Repeat<bool>(false, 3).ToArray();
         saveData.flags["thardOption"] = false;
         saveData.notPlayed = true;
 
         Save();
         Load();
+        LoadNextScene();
     }
 
     public void SetCurrentProgress(string str)
@@ -39,6 +55,13 @@ public class DataManager : MonoBehaviour
     {
         int endNum = int.Parse(saveData.currentProgress[3].ToString());
         saveData.reachedEnds[endNum-1] = true;
+        saveData.ending = true;
+    }
+
+    public void StaffRollEnd()
+    {
+        saveData.ending = false;
+        saveData.currentProgress = "S0";
     }
 
     public void Save()
@@ -54,8 +77,6 @@ public class DataManager : MonoBehaviour
 
     public void Load()
     {
-        saveData.notPlayed = false;
-
         if (File.Exists(_filePath))
         {
             StreamReader streamReader = new StreamReader(_filePath);
@@ -63,7 +84,5 @@ public class DataManager : MonoBehaviour
             streamReader.Close();
             saveData = JsonUtility.FromJson<SaveData>(data);
         }
-
-        SceneManager.LoadScene("LoadScene");
     }
 }

@@ -20,19 +20,21 @@ public class LoadSceneManager : MonoBehaviour
     {
         _dataManager.Save();
 
-        if (_dataManager.saveData.currentProgress[0..1] == "S3")
+        if (_dataManager.saveData.ending)
         {
-            _dataManager.ReachEnd();
             _loadScene = SceneManager.LoadSceneAsync("StaffRoll");
         }
-        switch(_dataManager.saveData.currentProgress[0])
+        else
         {
-            case 'S':
-                _loadScene = SceneManager.LoadSceneAsync("NovelScene");
-                break;
-            case 'B':
-                _loadScene = SceneManager.LoadSceneAsync("BattleScene");
-                break;
+            switch(_dataManager.saveData.currentProgress[0])
+            {
+                case 'S':
+                    _loadScene = SceneManager.LoadSceneAsync("NovelScene");
+                    break;
+                case 'B':
+                    _loadScene = SceneManager.LoadSceneAsync("base-BattleScene");
+                    break;
+            }
         }
 
         while (!_loadScene.isDone)

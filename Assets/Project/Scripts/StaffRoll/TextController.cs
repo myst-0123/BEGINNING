@@ -14,10 +14,12 @@ public class TextController : MonoBehaviour
     [SerializeField] private float _limitPosition;
 
     private RectTransform _rectTransform;
+    private DataManager _dataManager;
 
     void Start()
     {
         _rectTransform = gameObject.GetComponent<RectTransform>();
+        _dataManager = GameObject.Find("DataManager").GetComponent<DataManager>();
         _text.text = _textAsset.text;
     }
 
@@ -26,6 +28,8 @@ public class TextController : MonoBehaviour
     {
         if (Input.GetMouseButton(0))
         {
+            _dataManager.StaffRollEnd();
+            _dataManager.Save();
             SceneManager.LoadScene("TitleScene");
         }
         else

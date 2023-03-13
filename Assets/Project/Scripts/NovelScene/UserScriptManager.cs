@@ -18,7 +18,7 @@ namespace NovelScene
         private void Start()
         {
             _dataManager = GameObject.Find("DataManager").GetComponent<DataManager>();
-            _textFile = (TextAsset)Resources.Load("/texts/" + _dataManager.saveData.currentProgress);
+            _textFile = (TextAsset)Resources.Load("texts/" + _dataManager.saveData.currentProgress);
             StringReader reader = new StringReader(_textFile.text);
             while (reader.Peek() != -1)
             {
@@ -78,8 +78,16 @@ namespace NovelScene
                     GameManager.Instance.selectButtonManager.makeSelectButton(texts, labels);
                     break;
                 case "&scene":
-                    _dataManager.SetCurrentProgress(words[1]);
-                    SceneManager.LoadScene("LoadScene");
+                    if (words[1] == "End")
+                    {
+                        _dataManager.ReachEnd();
+                        SceneManager.LoadScene("LoadScene");
+                    }
+                    else
+                    {
+                        _dataManager.SetCurrentProgress(words[1]);
+                        SceneManager.LoadScene("LoadScene");
+                    }
                     break;
                 case "&if":
                     if (_dataManager.saveData.flags[words[1]])
