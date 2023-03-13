@@ -13,10 +13,18 @@ public class LoadSceneManager : MonoBehaviour
     void Start()
     {
         _dataManager = GameObject.Find("DataManager").GetComponent<DataManager>();
+        StartCoroutine(LoadScene());
     }
 
     IEnumerator LoadScene()
     {
+        _dataManager.Save();
+
+        if (_dataManager.saveData.currentProgress[0..1] == "S3")
+        {
+            _dataManager.ReachEnd();
+            _loadScene = SceneManager.LoadSceneAsync("StaffRoll");
+        }
         switch(_dataManager.saveData.currentProgress[0])
         {
             case 'S':

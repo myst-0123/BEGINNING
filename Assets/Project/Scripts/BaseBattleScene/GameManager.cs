@@ -11,13 +11,14 @@ namespace BattleScene
         private enum Stage
         {
             one,
-            two,
+            twoOne,
+            twoTwo,
             threeOne,
             threeTwo,
             threeThree
         }
 
-        [SerializeField] private GameObject[] _enemyPrefabs = new GameObject[5];
+        [SerializeField] private GameObject[] _enemyPrefabs = new GameObject[6];
         [SerializeField] private GameObject _playerObject;
         [SerializeField] private Canvas _gameoverWindow;
         [SerializeField] private Image _image;
@@ -27,8 +28,9 @@ namespace BattleScene
         [SerializeField] private float _loopCount;
         
         private GameObject _enemies;
-        private HPController _playerHpController;
 
+        private DataManager _dataManager;
+        private Stage _stage;
         private float _waitTime;
         private float _interval;
 
@@ -36,9 +38,37 @@ namespace BattleScene
         {
             _waitTime = _fadeTime / _loopCount;
             _interval = 255.0f / _loopCount;
+            _dataManager = GameObject.Find("DataManager").GetComponent<DataManager>();
 
-            InstantiateEnemy(Stage.threeThree);
-            StartCoroutine("FadeIn");
+            GetStage();
+            InstantiateEnemy(_stage);
+            StartCoroutine(FadeIn());
+        }
+
+        private void GetStage()
+        {
+            switch(_dataManager.saveData.currentProgress)
+            {
+                case "B1":
+                    _stage = Stage.one;
+                    break;
+                case "B2-1":
+                case "B2-2":
+                    _stage = Stage.twoOne;
+                    break;
+                case "B2-3":
+                    _stage = Stage.twoTwo;
+                    break;
+                case "B3-1":
+                    _stage = Stage.threeOne;
+                    break;
+                case "B3-2":
+                    _stage = Stage.threeTwo;
+                    break;
+                case "B3-3":
+                    _stage = Stage.threeThree;
+                    break;
+            }
         }
 
         private void InstantiateEnemy(Stage stage)
@@ -48,13 +78,13 @@ namespace BattleScene
 
         public void Retry()
         {
-            Debug.Log("clicked!");
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
 
         public void ReturnToTitle()
         {
-
+            _dataManager.Save();
+            SceneManager.LoadScene("TitleScene");
         }
 
         IEnumerator BattleLose()
@@ -80,7 +110,12 @@ namespace BattleScene
             IEnumerator enumerator = FadeOut();
             Coroutine coroutine = StartCoroutine(enumerator);
             yield return coroutine;
-            UnityEditor.EditorApplication.isPlaying = false;
+
+            string newProgress = _dataManager.saveData.currentProgress;
+            newProgress = newProgress.Replace("B", "S");
+            _dataManager.SetCurrentProgress(newProgress);
+
+            SceneManager.LoadScene("LoadScene");
         }
 
         IEnumerator FadeIn()

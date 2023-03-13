@@ -4,17 +4,21 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace NovelScene
 {
     public class UserScriptManager : MonoBehaviour
     {
-        [SerializeField] TextAsset _textFile;
+        private TextAsset _textFile;
+        private DataManager _dataManager;
 
         List<string> _sentences = new List<string>();
 
-        private void Awake()
+        private void Start()
         {
+            _dataManager = GameObject.Find("DataManager").GetComponent<DataManager>();
+            _textFile = (TextAsset)Resources.Load("/texts/" + _dataManager.saveData.currentProgress);
             StringReader reader = new StringReader(_textFile.text);
             while (reader.Peek() != -1)
             {
@@ -73,6 +77,20 @@ namespace NovelScene
                     }
                     GameManager.Instance.selectButtonManager.makeSelectButton(texts, labels);
                     break;
+                case "&scene":
+                    _dataManager.SetCurrentProgress(words[1]);
+                    SceneManager.LoadScene("LoadScene");
+                    break;
+                case "&if":
+                    if (_dataManager.saveData.flags[words[1]])
+                    {
+                        ;
+                    }
+                    else
+                    {
+                        GoToLine(words[2]);
+                    }
+                    break;
                 case "!":
                     if (words.Length == 1)
                     {
@@ -82,6 +100,9 @@ namespace NovelScene
                     {
                         GameManager.Instance.nameTextController.SetName(words[1]);
                     }
+                    break;
+                default:
+                    Debug.LogError("Invalid Command");
                     break;
             }
         }
