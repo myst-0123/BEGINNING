@@ -25,4 +25,9 @@ public class BossHpController : MonoBehaviour
         }
         hpSlider.value = (float)hp / (float)maxHp;
     }
+
+    public float HpPercent()
+    {
+        return 100 * hp / maxHp;
+    }
 }
