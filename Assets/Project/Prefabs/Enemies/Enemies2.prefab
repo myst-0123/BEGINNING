@@ -103,6 +103,10 @@ PrefabInstance:
       value: E_stand
       objectReference: {fileID: 0}
     - target: {fileID: 4956634639920111175, guid: 67ff6316b9757d149bbfb91d1164175d, type: 3}
+      propertyPath: destroyPrefab
+      value: 
+      objectReference: {fileID: 2245448405516516047, guid: e69c738ebe11b2c429fbc28aa9f62ae9, type: 3}
+    - target: {fileID: 4956634639920111175, guid: 67ff6316b9757d149bbfb91d1164175d, type: 3}
       propertyPath: enemiesController
       value: 
       objectReference: {fileID: 825302054426455329}
@@ -169,6 +173,10 @@ PrefabInstance:
       value: E_stand (2)
       objectReference: {fileID: 0}
     - target: {fileID: 4956634639920111175, guid: 67ff6316b9757d149bbfb91d1164175d, type: 3}
+      propertyPath: destroyPrefab
+      value: 
+      objectReference: {fileID: 2245448405516516047, guid: e69c738ebe11b2c429fbc28aa9f62ae9, type: 3}
+    - target: {fileID: 4956634639920111175, guid: 67ff6316b9757d149bbfb91d1164175d, type: 3}
       propertyPath: enemiesController
       value: 
       objectReference: {fileID: 825302054426455329}
@@ -234,6 +242,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: E_stand (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4956634639920111175, guid: 67ff6316b9757d149bbfb91d1164175d, type: 3}
+      propertyPath: destroyPrefab
+      value: 
+      objectReference: {fileID: 2245448405516516047, guid: e69c738ebe11b2c429fbc28aa9f62ae9, type: 3}
     - target: {fileID: 4956634639920111175, guid: 67ff6316b9757d149bbfb91d1164175d, type: 3}
       propertyPath: enemiesController
       value: 

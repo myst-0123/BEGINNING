@@ -9,6 +9,7 @@ public class ZakoController : MonoBehaviour
     [SerializeField] private EnemiesController enemiesController;
     [SerializeField] private float speed;
     [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] private GameObject destroyPrefab;
     [SerializeField] private int attackDamage;
     [SerializeField] private int bulletDamage;
 
@@ -28,6 +29,7 @@ public class ZakoController : MonoBehaviour
        
         if (zakoHpController.hp == 0)
         {
+            Instantiate(destroyPrefab, transform.position, transform.rotation);
             Destroy(gameObject);
         }
         if (enemiesController.permittion)

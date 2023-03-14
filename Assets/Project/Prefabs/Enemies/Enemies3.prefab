@@ -270,6 +270,7 @@ MonoBehaviour:
   enemiesController: {fileID: 2445736948294024752}
   speed: 2
   bulletPrefab: {fileID: 3866751478614511372, guid: 6f9e87d1b29ab1a4dad28e8bb05808e4, type: 3}
+  destroyPrefab: {fileID: 2245448405516516047, guid: e69c738ebe11b2c429fbc28aa9f62ae9, type: 3}
   attackDamage: 15
   bulletDamage: 8
 --- !u!50 &992812413801326971
@@ -576,6 +577,7 @@ MonoBehaviour:
   enemiesController: {fileID: 2445736948294024752}
   speed: 2
   bulletPrefab: {fileID: 3866751478614511372, guid: 6f9e87d1b29ab1a4dad28e8bb05808e4, type: 3}
+  destroyPrefab: {fileID: 2245448405516516047, guid: e69c738ebe11b2c429fbc28aa9f62ae9, type: 3}
   attackDamage: 15
   bulletDamage: 8
 --- !u!50 &4482271872320534216
@@ -882,6 +884,7 @@ MonoBehaviour:
   enemiesController: {fileID: 2445736948294024752}
   speed: 2
   bulletPrefab: {fileID: 3866751478614511372, guid: 6f9e87d1b29ab1a4dad28e8bb05808e4, type: 3}
+  destroyPrefab: {fileID: 2245448405516516047, guid: e69c738ebe11b2c429fbc28aa9f62ae9, type: 3}
   attackDamage: 15
   bulletDamage: 8
 --- !u!50 &6736965561532101988
@@ -1188,6 +1191,7 @@ MonoBehaviour:
   enemiesController: {fileID: 2445736948294024752}
   speed: 2
   bulletPrefab: {fileID: 3866751478614511372, guid: 6f9e87d1b29ab1a4dad28e8bb05808e4, type: 3}
+  destroyPrefab: {fileID: 2245448405516516047, guid: e69c738ebe11b2c429fbc28aa9f62ae9, type: 3}
   attackDamage: 15
   bulletDamage: 8
 --- !u!50 &8224646093248181631
@@ -1494,6 +1498,7 @@ MonoBehaviour:
   enemiesController: {fileID: 2445736948294024752}
   speed: 2
   bulletPrefab: {fileID: 3866751478614511372, guid: 6f9e87d1b29ab1a4dad28e8bb05808e4, type: 3}
+  destroyPrefab: {fileID: 2245448405516516047, guid: e69c738ebe11b2c429fbc28aa9f62ae9, type: 3}
   attackDamage: 15
   bulletDamage: 8
 --- !u!50 &3652690404237742439
@@ -1800,6 +1805,7 @@ MonoBehaviour:
   enemiesController: {fileID: 2445736948294024752}
   speed: 2
   bulletPrefab: {fileID: 3866751478614511372, guid: 6f9e87d1b29ab1a4dad28e8bb05808e4, type: 3}
+  destroyPrefab: {fileID: 2245448405516516047, guid: e69c738ebe11b2c429fbc28aa9f62ae9, type: 3}
   attackDamage: 15
   bulletDamage: 8
 --- !u!50 &5202164869966769248
@@ -2106,6 +2112,7 @@ MonoBehaviour:
   enemiesController: {fileID: 2445736948294024752}
   speed: 2
   bulletPrefab: {fileID: 3866751478614511372, guid: 6f9e87d1b29ab1a4dad28e8bb05808e4, type: 3}
+  destroyPrefab: {fileID: 2245448405516516047, guid: e69c738ebe11b2c429fbc28aa9f62ae9, type: 3}
   attackDamage: 15
   bulletDamage: 8
 --- !u!50 &1930398582100543442
@@ -2412,6 +2419,7 @@ MonoBehaviour:
   enemiesController: {fileID: 2445736948294024752}
   speed: 2
   bulletPrefab: {fileID: 3866751478614511372, guid: 6f9e87d1b29ab1a4dad28e8bb05808e4, type: 3}
+  destroyPrefab: {fileID: 2245448405516516047, guid: e69c738ebe11b2c429fbc28aa9f62ae9, type: 3}
   attackDamage: 15
   bulletDamage: 8
 --- !u!50 &2346754885341721004
@@ -2718,6 +2726,7 @@ MonoBehaviour:
   enemiesController: {fileID: 2445736948294024752}
   speed: 2
   bulletPrefab: {fileID: 3866751478614511372, guid: 6f9e87d1b29ab1a4dad28e8bb05808e4, type: 3}
+  destroyPrefab: {fileID: 2245448405516516047, guid: e69c738ebe11b2c429fbc28aa9f62ae9, type: 3}
   attackDamage: 15
   bulletDamage: 8
 --- !u!50 &2658445069369294986
@@ -3024,6 +3033,7 @@ MonoBehaviour:
   enemiesController: {fileID: 2445736948294024752}
   speed: 2
   bulletPrefab: {fileID: 3866751478614511372, guid: 6f9e87d1b29ab1a4dad28e8bb05808e4, type: 3}
+  destroyPrefab: {fileID: 2245448405516516047, guid: e69c738ebe11b2c429fbc28aa9f62ae9, type: 3}
   attackDamage: 15
   bulletDamage: 8
 --- !u!50 &5195016923682907470
