@@ -34,6 +34,7 @@ namespace BattleScene
             _playerObject = GameObject.Find("Player");
             _controller = transform.parent.GetComponent<EnemiesController>();
             _hpController = transform.GetComponent<BossHpController>();
+            _hpController.SetName("3-3　旧友「スター」");
             StartCoroutine(Attack());
             StartCoroutine(Winder());
         }

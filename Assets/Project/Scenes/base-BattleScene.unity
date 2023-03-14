@@ -1084,7 +1084,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1127773602}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1094,7 +1094,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 50}
+  m_AnchoredPosition: {x: 0, y: 49.99994}
   m_SizeDelta: {x: 1000, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1127773604
@@ -1117,7 +1117,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u7530\u4E2D\u30DE\u30F3\n"
+  m_text: Boss
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6af90031810a0e24c99a4e5de4f1da7e, type: 2}
   m_sharedMaterial: {fileID: 1329855010053611860, guid: 6af90031810a0e24c99a4e5de4f1da7e, type: 2}
@@ -1518,7 +1518,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bossHpBar: {fileID: 1911005711}
   _enemyPrefabs:
-  - {fileID: 5019753973659556780, guid: b140f68cca1434a4c9840f1956031709, type: 3}
+  - {fileID: 7980246433117994308, guid: 1c89be053b4939345ba28af68b3235b3, type: 3}
   - {fileID: 8466639969951242114, guid: 0c059436a652e4e43a850229718ce78a, type: 3}
   - {fileID: 1434076654068698187, guid: 04713cdef34c9af47b9d7c773953964e, type: 3}
   - {fileID: 7980246433117994308, guid: 1c89be053b4939345ba28af68b3235b3, type: 3}

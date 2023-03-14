@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using TMPro;
 using UnityEngine;
 
 
@@ -31,6 +32,7 @@ namespace BattleScene
             _playerObject = GameObject.Find("Player");
             _controller = transform.parent.GetComponent<EnemiesController>();
             _hpController = transform.GetComponent<BossHpController>();
+            _hpController.SetName("3-1　主の使い「ドミニオン」");
             StartCoroutine(Attack());
             StartCoroutine(Warp());
         }
@@ -229,7 +231,7 @@ namespace BattleScene
 
                     isWarping = true;
 
-                    for (float i = 0.1f; i >= 0; i -= 0.01f)
+                    for (float i = 0.6f; i >= 0; i -= 0.03f)
                     {
                         transform.localScale = new Vector3(i, i, 1);
 
@@ -240,7 +242,7 @@ namespace BattleScene
 
                     yield return new WaitForSeconds(0.5f);
 
-                    for (float i = 0f; i <= 0.1f; i += 0.01f)
+                    for (float i = 0f; i <= 0.6f; i += 0.03f)
                     {
                         transform.localScale = new Vector3(i, i, 1);
 

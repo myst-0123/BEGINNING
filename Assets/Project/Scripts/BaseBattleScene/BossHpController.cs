@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -29,5 +30,10 @@ public class BossHpController : MonoBehaviour
     public float HpPercent()
     {
         return 100 * hp / maxHp;
+    }
+
+    public void SetName(string name)
+    {
+        GameObject.Find("Name").GetComponent<TextMeshProUGUI>().text = name;
     }
 }

@@ -28,6 +28,7 @@ public class BossAI32 : MonoBehaviour
         _playerObject = GameObject.Find("Player");
         _controller = transform.parent.GetComponent<EnemiesController>();
         _hpController = transform.GetComponent<BossHpController>();
+        _hpController.SetName("3-2@‘n‘¢å‚Ì‰Ê‚Äu”mv");
         StartCoroutine(Attack());
     }
 
