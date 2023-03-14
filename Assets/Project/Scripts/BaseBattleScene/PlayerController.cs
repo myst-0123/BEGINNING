@@ -11,14 +11,19 @@ namespace BattleScene
         float time = 0;
         float skillTime;
         float skillCoolDown = 0;
+        float skillTimeE;
+        float skillCoolDownE = 0;
+
 
         [SerializeField] float shootInterval;
         [SerializeField] float skillCollTime;
+        [SerializeField] float skillCollTimeE;
         [SerializeField] float skillContinuationTime;
         [SerializeField] float speed;
         [SerializeField] GameObject bulletPrefab;
         [SerializeField] GameObject manager;
         [SerializeField] Slider skillSlider;
+        [SerializeField] Slider skillSliderE;
 
         private GameManager gameManager;
 
@@ -28,6 +33,7 @@ namespace BattleScene
             gameManager = manager.GetComponent<GameManager>();
 
             skillTime = skillContinuationTime;
+            skillTimeE = skillContinuationTime;
         }
 
         void Update()
@@ -80,9 +86,13 @@ namespace BattleScene
             {
                 Shoot();
             }
-            if (Input.GetMouseButton(1))
+            if (Input.GetKey(KeyCode.Q))
             {
                 Skill();
+            }
+            if (Input.GetKey(KeyCode.E))
+            {
+                SkillE();
             }
         }
 
@@ -111,12 +121,13 @@ namespace BattleScene
 
         void SkillTimeUpdate()
         {
+            //Skill Q
             if (skillTime < skillContinuationTime)
             {
                 skillTime += Time.deltaTime;
                 if (skillTime > skillContinuationTime)
                 {
-                    shootInterval -= 0.5f; 
+                    shootInterval -= 0.3f; 
                     skillTime = skillContinuationTime;
                 }
                 skillSlider.value = skillTime / skillContinuationTime;
@@ -130,6 +141,27 @@ namespace BattleScene
                 }
                 skillSlider.value = skillCoolDown / skillCollTime;
             }
+
+            //Skill E
+            if (skillTimeE < skillContinuationTime)
+            {
+                skillTimeE += Time.deltaTime;
+                if (skillTimeE > skillContinuationTime)
+                {
+                    speed /= 2;
+                    skillTimeE = skillContinuationTime;
+                }
+                skillSliderE.value = skillTimeE / skillContinuationTime;
+            }
+            else
+            {
+                skillCoolDownE -= Time.deltaTime;
+                if (skillCoolDownE < 0)
+                {
+                    skillCoolDownE = 0;
+                }
+                skillSliderE.value = skillCoolDownE / skillCollTimeE;
+            }
         }
 
         void Skill()
@@ -137,8 +169,18 @@ namespace BattleScene
             if (skillCoolDown == 0)
             {
                 skillTime = 0;
-                shootInterval += 0.5f;
+                shootInterval += 0.3f;
                 skillCoolDown = skillCollTime;
+            }
+        }
+
+        void SkillE()
+        {
+            if (skillCoolDownE == 0)
+            {
+                skillTimeE = 0;
+                speed *= 2;
+                skillCoolDownE = skillCollTimeE;
             }
         }
     }
