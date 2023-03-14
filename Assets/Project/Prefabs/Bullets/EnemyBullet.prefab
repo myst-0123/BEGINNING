@@ -141,6 +141,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  attackDamage: 20
+  attackDamage: 10
   hitFxPrefab: {fileID: 4892261142747455505, guid: 7faa037bc648b844db26d64d06868b5e, type: 3}
-  direction: 0
