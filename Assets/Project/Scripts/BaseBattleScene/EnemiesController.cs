@@ -26,8 +26,8 @@ public class EnemiesController : MonoBehaviour
         }
     }
 
-    public void SetPermittionTrue()
+    public void SetPermittion(bool value)
     {
-        permittion = true;
+        permittion = value;
     }
 }

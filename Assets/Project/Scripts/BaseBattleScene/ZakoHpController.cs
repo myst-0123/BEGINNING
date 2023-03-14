@@ -1,18 +1,16 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BossHpController : MonoBehaviour
+public class ZakoHpController : MonoBehaviour
 {
     [SerializeField] int maxHp;
-    
+
     private Slider hpSlider;
 
     public int hp { get; private set; }
 
     void Start()
     {
-        hpSlider = GameObject.Find("EnemyHPBar").GetComponent<Slider>();
-        hpSlider.value = 1;
         hp = maxHp;
     }
 
@@ -23,11 +21,5 @@ public class BossHpController : MonoBehaviour
         {
             hp = 0;
         }
-        hpSlider.value = (float)hp / (float)maxHp;
-    }
-
-    public float HpPercent()
-    {
-        return 100 * hp / maxHp;
     }
 }

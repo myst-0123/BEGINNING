@@ -37,5 +37,15 @@ namespace BattleScene
                 hpController.Attack(attackDamage);
             }
         }
+
+        public void SetBulletDamage(int dmg)
+        {
+            attackDamage = dmg;
+        }
+
+        public void SetBulletSpeed(float speed)
+        {
+            this.speed = speed;
+        }
     }
 }

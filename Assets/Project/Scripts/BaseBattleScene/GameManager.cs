@@ -18,17 +18,17 @@ namespace BattleScene
             threeThree
         }
 
+        [SerializeField] private Slider _bossHpBar;
         [SerializeField] private GameObject[] _enemyPrefabs = new GameObject[6];
         [SerializeField] private GameObject _playerObject;
         [SerializeField] private Canvas _gameoverWindow;
         [SerializeField] private Image _image;
         [SerializeField] private Image _readyImage;
         [SerializeField] private Image _fightImage;
-        [SerializeField] private float _fadeTime;
-        [SerializeField] private float _loopCount;
         
+        private float _fadeTime = 1.0f;
+        private float _loopCount = 100;
         private GameObject _enemies;
-
         private DataManager _dataManager;
         private Stage _stage;
         private float _waitTime;
@@ -51,10 +51,12 @@ namespace BattleScene
             {
                 case "B1":
                     _stage = Stage.one;
+                    _bossHpBar.gameObject.SetActive(false);
                     break;
                 case "B2-1":
                 case "B2-2":
                     _stage = Stage.twoOne;
+                    _bossHpBar.gameObject.SetActive(false);
                     break;
                 case "B2-3":
                     _stage = Stage.twoTwo;
@@ -89,6 +91,9 @@ namespace BattleScene
 
         IEnumerator BattleLose()
         {
+            _enemies.GetComponent<EnemiesController>().SetPermittion(false);
+            _playerObject.GetComponent<PlayerController>().enabled = false;
+
             _gameoverWindow.gameObject.SetActive(true);
 
             float interval = 130.0f / _loopCount;
@@ -120,10 +125,10 @@ namespace BattleScene
 
         IEnumerator FadeIn()
         {
-            float _velocity = 8.0f / _fadeTime;
-            float velocityReductionRate = _velocity / (_fadeTime * _loopCount);
-
             _image.color = new Color(0, 0, 0, 1);
+
+            float _velocity = 8.0f;
+            float velocityReductionRate = _velocity / _loopCount;
 
             for (float a = 255.0f; a >= 0; a -= _interval)
             {
@@ -152,7 +157,7 @@ namespace BattleScene
             _fightImage.gameObject.SetActive(false);
 
             _playerObject.GetComponent<PlayerController>().enabled = true;
-            _enemies.GetComponent<EnemiesController>().SetPermittionTrue();
+            _enemies.GetComponent<EnemiesController>().SetPermittion(true);
         }
 
         IEnumerator FadeOut()
