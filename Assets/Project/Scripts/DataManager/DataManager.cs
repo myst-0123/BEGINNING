@@ -30,7 +30,6 @@ public class DataManager : MonoBehaviour
 
     public void LoadNextScene()
     {
-        saveData.notPlayed = false;
         SceneManager.LoadScene("LoadScene");
     }
 
@@ -62,6 +61,11 @@ public class DataManager : MonoBehaviour
     {
         saveData.ending = false;
         saveData.currentProgress = "S0";
+    }
+
+    public void Played()
+    {
+        saveData.notPlayed = false;
     }
 
     public void Save()

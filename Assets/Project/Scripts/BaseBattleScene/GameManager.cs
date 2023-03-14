@@ -21,6 +21,7 @@ namespace BattleScene
         [SerializeField] private GameObject[] _enemyPrefabs = new GameObject[6];
         [SerializeField] private GameObject _playerObject;
         [SerializeField] private Canvas _gameoverWindow;
+        [SerializeField] private Canvas _tutorialWindow;
         [SerializeField] private Image _image;
         [SerializeField] private Image _readyImage;
         [SerializeField] private Image _fightImage;
@@ -150,6 +151,14 @@ namespace BattleScene
             yield return new WaitForSeconds(0.7f);
 
             _fightImage.gameObject.SetActive(false);
+
+            if (_dataManager.saveData.notPlayed)
+            {
+                _dataManager.Played();
+                _tutorialWindow.gameObject.SetActive(true);
+                yield return StartCoroutine(_tutorialWindow.gameObject.GetComponent<Tutorial>().WaitClick());
+                _tutorialWindow.gameObject.SetActive(false);
+            }
 
             _playerObject.GetComponent<PlayerController>().enabled = true;
             _enemies.GetComponent<EnemiesController>().SetPermittionTrue();
