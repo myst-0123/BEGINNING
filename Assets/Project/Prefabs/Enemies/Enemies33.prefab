@@ -385,7 +385,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bulletPrefab: {fileID: 3866751478614511372, guid: 6f9e87d1b29ab1a4dad28e8bb05808e4, type: 3}
   _winderPrefab: {fileID: 9156627355593660536, guid: ca58d2a12bacaeb4e837a7bf940c319b, type: 3}
-  _speed: 1.5
+  _speed: 0.8
 --- !u!95 &2980542348749186192
 Animator:
   serializedVersion: 5

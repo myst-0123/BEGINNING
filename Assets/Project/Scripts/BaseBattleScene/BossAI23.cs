@@ -93,8 +93,31 @@ namespace BattleScene
             }
             else
             {
-                transform.position += _direction * Time.deltaTime;
+                if (CanMove())
+                    transform.position += _direction * Time.deltaTime;
+                else
+                    _state = State.Track;
             }
+        }
+
+        bool CanMove()
+        {
+            if (_direction.y > 0)
+            {
+                if (transform.position.y <= 4.0f)
+                {
+                    return true;
+                }
+            }
+            if (_direction.y < 0)
+            {
+                if (transform.position.y >= -4.0f)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         void TrackMove()

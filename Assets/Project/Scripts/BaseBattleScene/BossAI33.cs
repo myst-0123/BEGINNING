@@ -99,8 +99,31 @@ namespace BattleScene
             }
             else
             {
-                transform.position += _direction * Time.deltaTime;
+                if (CanMove())
+                    transform.position += _direction * Time.deltaTime;
+                else
+                    _state = State.Track;
             }
+        }
+
+        bool CanMove()
+        {
+            if (_direction.y > 0)
+            {
+                if (transform.position.y <= 2.3f)
+                {
+                    return true;
+                }
+            }
+            if (_direction.y < 0)
+            {
+                if (transform.position.y >= -2.0f)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         void TrackMove()
@@ -138,7 +161,7 @@ namespace BattleScene
             {
                 if (_controller.permittion)
                 {
-                    switch (UnityEngine.Random.Range(1, 3))
+                    switch (UnityEngine.Random.Range(1, 6))
                     {
                         case 1:
                             yield return StartCoroutine(AttackRadiation());
@@ -146,10 +169,16 @@ namespace BattleScene
                         case 2:
                             yield return StartCoroutine(AttackRapidFire());
                             break;
+                        case 3:
+                            yield return StartCoroutine(AttackRapidFire2());
+                            break;
+                        case 4:
+                            yield return StartCoroutine(AttackRapidFire3());
+                            break;
                     }
                 }
 
-                yield return new WaitForSeconds(0.7f);
+                yield return new WaitForSeconds(0.3f);
             }
 
 
@@ -173,6 +202,123 @@ namespace BattleScene
 
         IEnumerator AttackRapidFire()
         {
+            Debug.Log("1");
+            if (_hpController.HpPercent() < 50)
+            {
+                for (int i = 0; i < 12; i++)
+                {
+                    for (float j = 96; j <= 264; j += 12)
+                    {
+                        Quaternion rotation = Quaternion.identity;
+                        rotation.eulerAngles = new Vector3(0, 0, j + (i-5) * 12);
+                        GameObject bullet = Instantiate(_bulletPrefab, transform.position, rotation);
+                        yield return new WaitForSeconds(0.01f);
+                    }
+                    for (float j = 264; j >= 96; j -= 12)
+                    {
+                        Quaternion rotation = Quaternion.identity;
+                        rotation.eulerAngles = new Vector3(0, 0, j + (i - 5) * 12);
+                        GameObject bullet = Instantiate(_bulletPrefab, transform.position, rotation);
+                        yield return new WaitForSeconds(0.01f);
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 0; i < 8; i++)
+                {
+                    for (float j = 96; j <= 264; j += 12)
+                    {
+                        Quaternion rotation = Quaternion.identity;
+                        rotation.eulerAngles = new Vector3(0, 0, j + (i - 3) * 12);
+                        GameObject bullet = Instantiate(_bulletPrefab, transform.position, rotation);
+                        yield return new WaitForSeconds(0.01f);
+                    }
+                    for (float j = 264; j >= 96; j -= 12)
+                    {
+                        Quaternion rotation = Quaternion.identity;
+                        rotation.eulerAngles = new Vector3(0, 0, j + (i - 3) * 12);
+                        GameObject bullet = Instantiate(_bulletPrefab, transform.position, rotation);
+                        yield return new WaitForSeconds(0.01f);
+                    }
+                }
+            }
+            yield return null;
+        }
+
+        IEnumerator AttackRapidFire2()
+        {
+            Debug.Log("2");
+            if (_hpController.HpPercent() < 50)
+            {
+                for (int i = 0; i < 9; i++)
+                {
+                    for (int k = 0; k < 6; k++)
+                    {
+                        for (float j = 117.5f; j <= 242.5f; j += 25)
+                        {
+                            Quaternion rotation = Quaternion.identity;
+                            rotation.eulerAngles = new Vector3(0, 0, j + (i - 4) * 12);
+                            GameObject bullet = Instantiate(_bulletPrefab, transform.position, rotation);
+                        }
+                        yield return new WaitForSeconds(0.05f);
+                    }
+                    yield return new WaitForSeconds(0.07f);
+                }
+            }
+            else
+            {
+                for (int i = 0; i < 7; i++)
+                {
+                    for (int k = 0; k < 6; k++)
+                    {
+                        for (float j = 117.5f; j <= 242.5f; j += 25)
+                        {
+                            Quaternion rotation = Quaternion.identity;
+                            rotation.eulerAngles = new Vector3(0, 0, j + (i - 3) * 12);
+                            GameObject bullet = Instantiate(_bulletPrefab, transform.position, rotation);
+                        }
+                        yield return new WaitForSeconds(0.05f);
+                    }
+                    yield return new WaitForSeconds(0.07f);
+                }
+            }
+            yield return null;
+        }
+
+        IEnumerator AttackRapidFire3()
+        {
+            Debug.Log("3");
+            if (_hpController.HpPercent() < 50)
+            {
+                for (int i = 0; i < 30; i++)
+                {
+                    for (float j = -40; j <= 40; j += 20)
+                    {
+                        float dir = GetDirect();
+                        Quaternion rotation = Quaternion.identity;
+                        rotation.eulerAngles = new Vector3(0, 0, dir + j);
+                        GameObject bullet = Instantiate(_bulletPrefab, transform.position, rotation);
+                        bullet.GetComponent<EnemyBulletController>().SetBulletSpeed(6.0f);
+                    }
+                    yield return new WaitForSeconds(0.15f);
+                }
+            }
+            else
+            {
+                for (int i = 0; i < 20; i++)
+                {
+                    for (float j = -40; j <= 40; j += 20)
+                    {
+                        float dir = GetDirect();
+                        Quaternion rotation = Quaternion.identity;
+                        rotation.eulerAngles = new Vector3(0, 0, dir + j);
+                        GameObject bullet = Instantiate(_bulletPrefab, transform.position, rotation);
+                        bullet.GetComponent<EnemyBulletController>().SetBulletSpeed(6.0f);
+                    }
+                    yield return new WaitForSeconds(0.15f);
+                }
+            }
             yield return null;
         }
 

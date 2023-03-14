@@ -92,8 +92,31 @@ public class BossAI32 : MonoBehaviour
         }
         else
         {
-            transform.position += _direction * Time.deltaTime;
+            if (CanMove())
+                transform.position += _direction * Time.deltaTime;
+            else
+                _state = State.Track;
         }
+    }
+
+    bool CanMove()
+    {
+        if (_direction.y > 0)
+        {
+            if (transform.position.y <= 2.7f)
+            {
+                return true;
+            }
+        }
+        if (_direction.y < 0)
+        {
+            if (transform.position.y >= -2.7f)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     void TrackMove()
