@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 
@@ -61,9 +62,9 @@ namespace BattleScene
         {
             _direction = Vector3.zero;
 
-            int rnd = Random.Range(1, 6);
+            int rnd = UnityEngine.Random.Range(1, 6);
 
-            _transitionTime = Random.Range(1f, 2f);
+            _transitionTime = UnityEngine.Random.Range(1f, 2f);
 
             if (rnd >= 4)
             {
@@ -78,7 +79,7 @@ namespace BattleScene
                 ;
             }
 
-            rnd = Random.Range(1, 6);
+            rnd = UnityEngine.Random.Range(1, 6);
 
             if (rnd == 1)
             {
@@ -151,12 +152,14 @@ namespace BattleScene
         {
             if (_moveTime == 0)
             {
+            Debug.Log(DateTime.Now.Millisecond);
                 for (int i = 105; i <= 255; i += 15)
                 {
                     Quaternion rotation = Quaternion.identity;
                     rotation.eulerAngles = new Vector3(0, 0, i);
                     GameObject bullet = Instantiate(_bulletPrefab, transform.position, rotation);
                 }
+            Debug.Log(DateTime.Now.Millisecond);
             }
         }
 

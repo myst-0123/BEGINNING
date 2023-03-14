@@ -36,6 +36,12 @@ namespace BattleScene
                     BossHpController hpController = collision.gameObject.GetComponent<BossHpController>();
                     hpController.Attack(attackDamage);
                     break;
+                case "Enemy":
+                    Instantiate(hitFxPrefab, transform.position, transform.rotation);
+                    Destroy(gameObject);
+                    ZakoHpController zakoHpController = collision.gameObject.GetComponent<ZakoHpController>();
+                    zakoHpController.Attack(attackDamage);
+                    break;
             }
         }
     }
