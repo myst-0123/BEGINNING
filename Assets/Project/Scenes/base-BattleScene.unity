@@ -1518,12 +1518,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bossHpBar: {fileID: 1911005711}
   _enemyPrefabs:
-  - {fileID: 1434076654068698187, guid: 04713cdef34c9af47b9d7c773953964e, type: 3}
+  - {fileID: 5019753973659556780, guid: b140f68cca1434a4c9840f1956031709, type: 3}
   - {fileID: 8466639969951242114, guid: 0c059436a652e4e43a850229718ce78a, type: 3}
-  - {fileID: 6817768760824877631, guid: b140f68cca1434a4c9840f1956031709, type: 3}
-  - {fileID: 6817768760824877631, guid: b140f68cca1434a4c9840f1956031709, type: 3}
-  - {fileID: 6817768760824877631, guid: b140f68cca1434a4c9840f1956031709, type: 3}
-  - {fileID: 6817768760824877631, guid: b140f68cca1434a4c9840f1956031709, type: 3}
+  - {fileID: 1434076654068698187, guid: 04713cdef34c9af47b9d7c773953964e, type: 3}
+  - {fileID: 7980246433117994308, guid: 1c89be053b4939345ba28af68b3235b3, type: 3}
+  - {fileID: 5512269012013374140, guid: 9f7c5d11acb8bc94da5d1d7352dff754, type: 3}
+  - {fileID: 5512269012013374140, guid: 9e57eae09d1b2844d829eea9fa38fb4e, type: 3}
   _playerObject: {fileID: 1417796964}
   _gameoverWindow: {fileID: 2034996870}
   _image: {fileID: 55708433}
@@ -2896,7 +2896,7 @@ MonoBehaviour:
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 1
+  m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96

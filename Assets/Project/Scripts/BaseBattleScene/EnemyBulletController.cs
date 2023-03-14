@@ -42,5 +42,10 @@ namespace BattleScene
         {
             attackDamage = dmg;
         }
+
+        public void SetBulletSpeed(float speed)
+        {
+            this.speed = speed;
+        }
     }
 }

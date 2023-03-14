@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace BattleScene
 {
-    public class BossAIController : MonoBehaviour
+    public class BossAI23 : MonoBehaviour
     {
         private enum State
         {
@@ -21,7 +21,6 @@ namespace BattleScene
         private State _state = State.Standby;
         private float _transitionTime = 1.5f;
         private float _moveTime = 0;
-        private float _fireTime = 0;
         private Vector3 _direction = Vector3.zero;
         private EnemiesController _controller;
         private BossHpController _hpController;
@@ -37,7 +36,6 @@ namespace BattleScene
         // Update is called once per frame
         void Update()
         {
-            Debug.Log(_hpController.hp);
             if (_controller.permittion)
             {
                 if (_hpController.hp == 0)
@@ -178,10 +176,10 @@ namespace BattleScene
             {
                 for (int i = 0; i < 20; i++)
                 {
-                    for (float j = 100; j <= 250; j += 50)
+                    for (float j = 120; j <= 240; j += 30)
                     {
                         Quaternion rotation = Quaternion.identity;
-                        rotation.eulerAngles = new Vector3(0, 0, j+(i - 10) * 5);
+                        rotation.eulerAngles = new Vector3(0, 0, j);
                         GameObject bullet = Instantiate(_bulletPrefab, transform.position, rotation);
                     }
                     yield return new WaitForSeconds(0.1f);
@@ -194,7 +192,7 @@ namespace BattleScene
                     for (float j = 150; j <= 210; j += 30)
                     {
                         Quaternion rotation = Quaternion.identity;
-                        rotation.eulerAngles = new Vector3(0, 0, j+(i-7)*10);
+                        rotation.eulerAngles = new Vector3(0, 0, j);
                         GameObject bullet = Instantiate(_bulletPrefab, transform.position, rotation);
                     }
                     yield return new WaitForSeconds(0.1f);
